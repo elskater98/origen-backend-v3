@@ -1,5 +1,5 @@
 /* Imports */
-const User = require('../schemas/user');
+const { User } = require('../schemas/user');
 const bcrypt = require('bcrypt');
 
 /*User Controllers*/

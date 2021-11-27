@@ -5,7 +5,6 @@ const ProductSchema = mongoose.Schema({
         type: String,
         maxLength: 128,
         required: 'Name is required.',
-        unique: true
     },
     model: {
         type: String,
@@ -44,6 +43,16 @@ const CartSchema = mongoose.Schema({
     products: {
         type: [ProductSchema]
     },
+    users: {
+        type: [String]
+    },
+    colors: {
+        type: [mongoose.Schema.Types.Mixed]
+    },
+    createdAt: {
+        type: Date,
+        default: new Date().toDateString()
+    }
 });
 
 module.exports = { Product: mongoose.model('Product', ProductSchema), Cart: mongoose.model('Cart', CartSchema) };

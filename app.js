@@ -5,15 +5,21 @@ const helmet = require('helmet');
 const cors = require('cors');
 const config = require('./config');
 const mongoose = require('mongoose');
-const User = require('./schemas/user');
+const bcrypt = require('bcrypt');
+
+/* Import Routes*/
 const user = require('./routes/user');
 const authentication = require('./routes/authentication');
-const bcrypt = require('bcrypt');
+const carts = require('./routes/cart');
+const product = require('./routes/product');
+
+/* Import Schemas*/
+const { User } = require('./schemas/user');
 const { Product } = require('./schemas/product')
 const Stock = require('./schemas/stock')
 const { Cart } = require('./schemas/product');
 
-/* Initialization*/
+/* Initialization */
 const app = express();
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -29,6 +35,8 @@ app.use(cors({
 /*Routes*/
 app.use('/user', user);
 app.use('/auth', authentication);
+app.use('/cart', carts);
+app.use('/product', product);
 
 /*Connection MongoDB*/
 mongoose.connect(config.mongo_db_uri, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true });
@@ -70,7 +78,7 @@ Stock.find({}).countDocuments().then(async (count) => {
     }
 });
 
-cart = new Cart({ products: [{ name: "RTX 3080 Ti", model: "Gigabyte", categoty: "hardware", price: 1 }] })
+cart = new Cart({ products: [{ name: "RTX 3080 Ti", model: "Gigabyte", categoty: "hardware", price: 1 }], colors: [{ user: "patata", color: "green" }] })
 cart.save()
 
 

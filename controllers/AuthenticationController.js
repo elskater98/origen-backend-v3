@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config');
-const User = require('../schemas/user');
+const { User } = require('../schemas/user');
 const bcrypt = require('bcrypt');
 
 async function generateToken(user) {
