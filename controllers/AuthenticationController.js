@@ -6,8 +6,7 @@ const bcrypt = require('bcrypt');
 async function generateToken(user) {
 
     return jwt.sign({
-        email: user.email,
-        roles: user.roles
+        email: user.email
     }, config.secret_key, {
         expiresIn: '72h'
     });
