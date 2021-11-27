@@ -32,7 +32,7 @@ exports.getCart = async (req, res, next) => {
 exports.createCart = async (req, res, next) => {
     const curret_user = await User.findOne({ email: req.user.email }, { password: 0, __v: 0 });
 
-    const cart = new Cart({ products: req.body['products'], users: [curret_user._id], colors: req.body['colors'] });
+    const cart = new Cart({ name: req.body['name'], products: req.body['products'], users: [curret_user._id], colors: req.body['colors'] });
     cart.save();
     res.status(201).send({ carts: cart });
 };

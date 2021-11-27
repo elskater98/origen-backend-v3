@@ -36,6 +36,9 @@ const UserSchema = mongoose.Schema({
     enable: {
         type: Boolean,
         default: true
+    },
+    current_cart: {
+        type: String
     }
 });
 

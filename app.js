@@ -7,6 +7,11 @@ const config = require('./config');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+// Sockets
+const http = require('http');
+const { Server } = require("socket.io");
+
+
 /* Import Routes*/
 const user = require('./routes/user');
 const authentication = require('./routes/authentication');
@@ -21,6 +26,13 @@ const { Cart } = require('./schemas/product');
 
 /* Initialization */
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+})
+
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(helmet());
@@ -49,7 +61,7 @@ db.once('open', function () {
 
 /* Server */
 const port = config.port;
-app.listen(port, () => {
+server.listen(port, () => {
     console.log('The server is running on ' + config.port + ' ...');
 });
 
