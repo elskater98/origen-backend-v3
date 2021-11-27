@@ -17,8 +17,7 @@ exports.getCart = async (req, res, next) => {
 
 
 exports.createCart = async (req, res, next) => {
-
-    const carts = new Cart({ _id: req.params.id });
+    const cart = new Cart({ products: req.body['products'], users: req.body['users'], colors: req.body['colors'] });
+    cart.save();
     res.status(200).send({ carts: cart });
-
 };

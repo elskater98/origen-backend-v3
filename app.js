@@ -78,8 +78,8 @@ Stock.find({}).countDocuments().then(async (count) => {
     }
 });
 
-cart = new Cart({ products: [{ name: "RTX 3080 Ti", model: "Gigabyte", categoty: "hardware", price: 1 }], colors: [{ user: "patata", color: "green" }] })
-cart.save()
+//cart = new Cart({ products: [{ name: "RTX 3080 Ti", model: "Gigabyte", categoty: "hardware", price: 1 }], colors: [{ user: "patata", color: "green" }] })
+//cart.save()
 
 
 module.exports = app;
