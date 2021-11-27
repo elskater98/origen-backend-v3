@@ -8,11 +8,12 @@ exports.getCarts = async (req, res, next) => {
     if (curret_user.roles.includes('Administrator')) {
         const carts = await Cart.find({});
         res.status(200).send({ carts: carts });
+    } else {
+
+        const carts = await Cart.find({ users: curret_user._id });
+        res.status(200).send({ carts: carts });
     }
 
-    const carts = await Cart.find({ users: curret_user._id });
-
-    res.status(200).send({ carts: carts });
 };
 
 exports.getCart = async (req, res, next) => {
@@ -20,12 +21,10 @@ exports.getCart = async (req, res, next) => {
 
     if (curret_user.roles.includes('Administrator')) {
         const carts = await Cart.findOne({ _id: req.params.id });
+    } else {
+        const carts = await Cart.findOne({ _id: req.params.id, users: curret_user._id });
+        res.status(200).send({ carts: carts });
     }
-
-    const carts = await Cart.findOne({ _id: req.params.id, users: curret_user._id });
-
-    res.status(200).send({ carts: carts });
-
 };
 
 
@@ -43,9 +42,9 @@ exports.editCart = async (req, res, next) => {
 
     if (curret_user.roles.includes('Administrator')) {
         let cart = await Cart.findOneAndUpdate({ _id: req.params.id }, req.body);
+    } else {
+        let cart = await Cart.findOneAndUpdate({ _id: req.params.id, users: curret_user._id }, req.body);
+        cart.save();
+        res.status(200).send({ carts: cart });
     }
-
-    let cart = await Cart.findOneAndUpdate({ _id: req.params.id, users: curret_user._id }, req.body);
-    cart.save();
-    res.status(200).send({ carts: cart });
 };

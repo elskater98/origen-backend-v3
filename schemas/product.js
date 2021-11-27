@@ -18,7 +18,7 @@ const ProductSchema = mongoose.Schema({
         type: String,
         maxLength: 512
     },
-    categoty: {
+    category: {
         type: String,
         maxLength: 64
     },
