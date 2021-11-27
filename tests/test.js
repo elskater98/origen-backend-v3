@@ -14,9 +14,9 @@ describe('Users', function () {
         token = response.body.token
     });
 
-    /*afterEach(async()=>{
+    afterEach(async()=>{
         await User.deleteOne({"email":"admin1@gmail.com"});
-    })*/
+    })
 
     it('As User I would like to authenticate.', function () {
         return request(app)
