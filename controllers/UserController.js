@@ -113,13 +113,13 @@ exports.changePassword = async (req, res, next) => {
 
     const curret_user = await User.findOne({ email: req.user.email }, { password: 0, __v: 0 });
 
-    if (curret_user.roles.includes('Administrator') || curret_user.email === req.body.email) {
+    if (curret_user.roles.includes('Administrator') || curret_user.email === req.params.id) {
 
         let old_password = req.body.old_password;
         let password = req.body.password;
         let _password = req.body._password;
 
-        const user_password = await User.findOne({ email: req.body.email }, { password: 1 });
+        const user_password = await User.findOne({ email: req.params.id }, { password: 1 });
 
         if (await bcrypt.compare(old_password, user_password.password)) {
             if (password === _password) {

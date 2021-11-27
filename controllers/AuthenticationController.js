@@ -13,9 +13,9 @@ async function generateToken(user) {
 }
 
 exports.ValidateUser = async (req, res, next) => {
-    const user = await User.findOne({ email: req.query.email });
+    const user = await User.findOne({ email: req.body.email });
     if (user !== null) {
-        const verify_password = await bcrypt.compare(req.query.password, user.password);
+        const verify_password = await bcrypt.compare(req.body.password, user.password);
         if (verify_password) {
             const token = await generateToken(user);
             res.header("x-auth-token", token).send({
