@@ -39,6 +39,10 @@ const UserSchema = mongoose.Schema({
     },
     current_cart: {
         type: String
+    },
+    color: {
+        type: String,
+        default: '#' + Math.floor(Math.random() * 16777215).toString(16)
     }
 });
 
