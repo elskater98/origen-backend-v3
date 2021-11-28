@@ -14,8 +14,9 @@ exports.getProducts = async (req, res, next) => {
 };
 
 exports.getProduct = async (req, res, next) => {
-
-    const product = await Product.findOne({ _id: req.params.id });
-    res.status(200).send({ product: product });
-
+    Product.findOne({ _id: req.params.id }).then((data) => {
+        res.status(200).send({ product: data });
+    }).catch((err) => {
+        res.status(400).send({ error: err })
+    });
 };

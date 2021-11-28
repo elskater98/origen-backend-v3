@@ -12,6 +12,7 @@ const user = require('./routes/user');
 const authentication = require('./routes/authentication');
 const carts = require('./routes/cart');
 const product = require('./routes/product');
+const category = require('./routes/category');
 
 /* Import Schemas */
 const { User } = require('./schemas/user');
@@ -36,6 +37,7 @@ app.use('/user', user);
 app.use('/auth', authentication);
 app.use('/cart', carts);
 app.use('/product', product);
+app.use('/category', category);
 
 /* Connection MongoDB */
 mongoose.connect(config.mongo_db_uri, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true });
