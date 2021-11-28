@@ -1,10 +1,13 @@
 const jwt = require('jsonwebtoken');
 const config = require('./../config');
 
-/*Middleware*/
+/* Middleware */
 
 module.exports = { authorize };
 function authorize(req, res, next) {
+    /*
+    Check if the toker provided from the user is valid.
+    */
     const token = req.query.token || req.body.token || req.params.token || req.headers['authorization'] || req.headers['x-access-token'];
     if (!token) return res.status(401).send("Access denied. No token provided.");
     try {

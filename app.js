@@ -7,31 +7,18 @@ const config = require('./config');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-// Sockets
-const http = require('http');
-const { Server } = require("socket.io");
-
-
-/* Import Routes*/
+/* Import Routes */
 const user = require('./routes/user');
 const authentication = require('./routes/authentication');
 const carts = require('./routes/cart');
 const product = require('./routes/product');
 
-/* Import Schemas*/
+/* Import Schemas */
 const { User } = require('./schemas/user');
 const { Product } = require('./schemas/product')
-const Stock = require('./schemas/stock')
-const { Cart } = require('./schemas/product');
 
 /* Initialization */
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
-
-io.on('connection', (socket) => {
-    console.log('a user connected');
-})
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -44,13 +31,13 @@ app.use(cors({
     "credentials": true
 }));
 
-/*Routes*/
+/* Routes */
 app.use('/user', user);
 app.use('/auth', authentication);
 app.use('/cart', carts);
 app.use('/product', product);
 
-/*Connection MongoDB*/
+/* Connection MongoDB */
 mongoose.connect(config.mongo_db_uri, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
@@ -61,7 +48,7 @@ db.once('open', function () {
 
 /* Server */
 const port = config.port;
-server.listen(port, () => {
+app.listen(port, () => {
     console.log('The server is running on ' + config.port + ' ...');
 });
 
@@ -80,13 +67,6 @@ Product.find({}).countDocuments().then(async (count) => {
     if (count === 0) {
         product1 = new Product({ name: "RTX 3080 Ti", model: "Gigabyte", categoty: "hardware", price: 1 });
         product1.save();
-    }
-});
-
-Stock.find({}).countDocuments().then(async (count) => {
-    if (count === 0) {
-        stock1 = new Stock({ product_id: "61a25dc24c9d3868916262a6", quantity: 100 })
-        stock1.save();
     }
 });
 

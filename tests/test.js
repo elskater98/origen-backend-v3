@@ -14,8 +14,8 @@ describe('Users', function () {
         token = response.body.token
     });
 
-    afterEach(async()=>{
-        await User.deleteOne({"email":"admin1@gmail.com"});
+    afterEach(async () => {
+        await User.deleteOne({ "email": "admin1@gmail.com" });
     })
 
     it('As User I would like to authenticate.', function () {
@@ -31,7 +31,7 @@ describe('Users', function () {
     it('As Admin I would like to know all the users.', async (done) => {
         return request(app)
             .get("/user")
-            .query({ token: token})
+            .query({ token: token })
             .expect(200)
             .then(async (response) => {
                 const num_users = await User.find({});
@@ -86,7 +86,7 @@ describe('Users', function () {
             })
     });
 
-    it('edit a user', async (done) => {
+    it('As User I would like to edit my profile.', async (done) => {
         let email = "admin1@gmail.com";
         const user = new User({
             "email": email,

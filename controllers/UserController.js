@@ -3,8 +3,6 @@ const { User } = require('../schemas/user');
 const bcrypt = require('bcrypt');
 
 /*User Controllers*/
-
-
 exports.getUsers = async (req, res, next) => {
     const curret_user = await User.findOne({ email: req.user.email }, { password: 0, __v: 0 });
 
