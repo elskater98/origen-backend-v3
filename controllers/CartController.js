@@ -6,10 +6,10 @@ exports.getCarts = async (req, res, next) => {
     const curret_user = await User.findOne({ email: req.user.email }, { password: 0, __v: 0 });
 
     if (curret_user.roles.includes('Administrator')) {
-        const carts = await Cart.find({});
+        const carts = await Cart.find({ active: true });
         res.status(200).send({ carts: carts });
     } else {
-        const carts = await Cart.find({ users: curret_user.email });
+        const carts = await Cart.find({ users: curret_user.email, active: true });
         res.status(200).send({ carts: carts });
     }
 

@@ -8,6 +8,6 @@ Run Server:
 
     npm start
 
-Run Tests:
+Run Login and User Endpoinds E2E Test:
 
     npm test
