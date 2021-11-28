@@ -50,6 +50,10 @@ exports.editUser = async (req, res, next) => {
 
         User.findOne({ email: req.params.id }, { password: 0, __v: 0, createdAt: 0 }).then((user) => {
 
+            if (Object.keys(req.body).includes('current_cart')) {
+                user['current_cart'] = req.body.current_cart;
+            }
+
             if (Object.keys(req.body).includes('email')) {
                 user['email'] = req.body.email;
             }
@@ -76,7 +80,8 @@ exports.editUser = async (req, res, next) => {
                     enable: user.enable,
                     first_name: user.first_name,
                     last_name: user.last_name,
-                    roles: user.roles
+                    roles: user.roles,
+                    current_cart: user.current_cart
                 }
             }).then(() => {
                 res.status(200).send({ message: "User updated." })
